@@ -4,12 +4,18 @@ from django.db import models
 
 
 class Article(models.Model):
+    category = models.ForeignKey(
+        'Category', on_delete=models.CASCADE, related_name='articles', default=1, verbose_name='Категорія')
+    tags = models.ManyToManyField(
+        'Tag', related_name='articles', verbose_name='Теги')
     title = models.CharField(max_length=255)
-    slug = models.SlugField()
-    content_preview = models.TextField()
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    slug = models.SlugField(verbose_name='URL', unique=True)
+    content_preview = models.TextField(verbose_name='Превью')
+    content = models.TextField(verbose_name='Основний текст')
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name='Дата створення')
+    updated_at = models.DateTimeField(
+        auto_now=True, verbose_name='Дата оновлення')
 
     def __str__(self):
         return f'{self.title}'
@@ -17,10 +23,12 @@ class Article(models.Model):
     class Meta:
         verbose_name = 'Стаття'
         verbose_name_plural = 'Статті'
+        ordering = ['-created_at']
 
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
+    slug = models.SlugField(verbose_name='URL', unique=True)
 
     class Meta:
         verbose_name = 'Категорія'
@@ -28,3 +36,33 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return f'{self.name}'
+
+
+class Tag(models.Model):
+    name = models.CharField(
+        max_length=255, verbose_name='Назва тега')
+
+    def __str__(self) -> str:
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'
+
+
+class Comment(models.Model):
+    article = models.ForeignKey(
+        Article, on_delete=models.CASCADE, related_name='comments')
+    name = models.CharField(max_length=255, verbose_name='Ім\'я')
+    email = models.EmailField(verbose_name='Email')
+    content = models.TextField(verbose_name='Коментар')
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name='Дата створення')
+
+    def __str__(self) -> str:
+        return f'{self.article.title} - {self.content}'
+
+    class Meta:
+        verbose_name = 'Коментар'
+        verbose_name_plural = 'Коментарі'
+        ordering = ['-created_at']
