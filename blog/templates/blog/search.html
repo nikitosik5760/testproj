@@ -3,7 +3,7 @@
 {% block title %} {{title}} {% endblock %}
 
 {% block content %}
-    <h1>{{title}}</h1>
+    <h1>Результат пошуку - {{query}}</h1>
     <div class="row row-cols-3 g-4">
 
         {% for article in articles %}
@@ -17,7 +17,7 @@
                 </div>
             </div>
             {% empty %}
-            <p>No articles yet.</p>
+            <p>No articles found.</p>
         {% endfor %}
           
     </div>

@@ -27,8 +27,9 @@ class Article(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(verbose_name='URL', unique=True)
+    name = models.CharField(
+        max_length=255, verbose_name='Назва Категорії', unique=True)
+    slug = models.SlugField(verbose_name='URL', default='')
 
     class Meta:
         verbose_name = 'Категорія'
@@ -40,7 +41,8 @@ class Category(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(
-        max_length=255, verbose_name='Назва тега')
+        max_length=255, verbose_name='Назва тега', unique=True)
+    slug = models.SlugField(verbose_name='URL', default='', unique=True)
 
     def __str__(self) -> str:
         return f'{self.name}'

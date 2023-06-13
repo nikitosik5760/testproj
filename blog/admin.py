@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Article, Category, Tag, Comment
+from .custom_filter import DuplicatSlugFilter
 # Register your models here.
 
 
@@ -21,6 +22,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     list_filter = ['name']
     prepopulated_fields = {'slug': ('name', )}
+    list_filter = (DuplicatSlugFilter,)
 
 
 class CommentAdmin(admin.ModelAdmin):
@@ -31,8 +33,9 @@ class CommentAdmin(admin.ModelAdmin):
 
 class TagAdmin(admin.ModelAdmin):
     search_fields = ['name']
-    list_display = ['name']
+    list_display = ['name', 'slug']
     list_filter = ['name']
+    prepopulated_fields = {'slug': ('name', )}
 
 
 admin.site.register(Article, ArticleAdmin)

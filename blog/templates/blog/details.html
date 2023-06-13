@@ -6,7 +6,7 @@
     <p>Дата публікації: {{article.created_at}} </p>
     <p>Дата оновлення: {{article.updated_at}} </p>
     <p> {% for tag in article.tags.all %}
-        <a href='#'>#{{tag.name}}</a>
+        <a href='{% url "articles_tag_list" tag=tag.slug %}'>#{{tag.name}}</a>
         {% endfor %}
     </p>
     <p>Категорія: <a href='#'>{{article.category.name}}</a></p>
@@ -22,9 +22,9 @@
     <h3>Коментарі</h3>
     </hr>
     {% for comment in article.comments.all %}
+    <p><strong>Ім'я:</strong> {{comment.name}}</p>
+    <p>Дата публікації: {{comment.created_at}}</p>
         <p>{{comment.content}}</p>
-        <p><strong>Ім'я:</strong> {{comment.name}}</p>
-        <p>Дата публікації: {{comment.created_at}}</p>
     </hr>
     {% empty %}
         <p>Коментарів немає</p>
