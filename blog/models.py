@@ -4,6 +4,14 @@ from django.db import models
 
 
 class Article(models.Model):
+    ACTIVE = 'active'
+    DRAFT = 'draft'
+
+    STATUS_CHOICES = (
+        (ACTIVE, 'Активна'),
+        (DRAFT, 'Чернетка'),
+    )
+
     category = models.ForeignKey(
         'Category', on_delete=models.CASCADE, related_name='articles', default=1, verbose_name='Категорія')
     tags = models.ManyToManyField(
@@ -16,6 +24,8 @@ class Article(models.Model):
         auto_now_add=True, verbose_name='Дата створення')
     updated_at = models.DateTimeField(
         auto_now=True, verbose_name='Дата оновлення')
+    status = models.CharField(
+        max_length=10, choices=STATUS_CHOICES, default=DRAFT, verbose_name='Статус')
 
     def __str__(self):
         return f'{self.title}'
