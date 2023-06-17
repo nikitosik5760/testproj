@@ -26,6 +26,8 @@ class Article(models.Model):
         auto_now=True, verbose_name='Дата оновлення')
     status = models.CharField(
         max_length=10, choices=STATUS_CHOICES, default=DRAFT, verbose_name='Статус')
+    image = models.ImageField(
+        upload_to='articles/', verbose_name='Зображення', blank=True, null=True)
 
     def __str__(self):
         return f'{self.title}'

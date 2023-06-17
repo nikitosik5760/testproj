@@ -16,12 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.conf import settings
+from django.conf.urls.static import static
 from core.views import frontpage, about
 from blog.urls import urlpatterns as blog_urls
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', frontpage, name='index'),
     path('about/', about, name='about'),
     path('blog/', include(blog_urls)),
-]
+    path('members/', include('members.urls'))
+
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
