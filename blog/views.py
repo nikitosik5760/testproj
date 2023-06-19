@@ -8,7 +8,7 @@ from .forms import CommentForm
 # Create your views here.
 
 
-@login_required(login_url='/members/login/')
+@login_required()
 def details(request, slug):
     article = get_object_or_404(Article, slug=slug, status='active')
 
@@ -28,7 +28,7 @@ def details(request, slug):
     return render(request, 'blog/details.html', {'article': article, 'form': form})
 
 
-@login_required(login_url='/members/login/')
+@login_required()
 def random_article(request):
     article = Article.objects.filter(status='active').order_by('?').first()
     return render(request, 'blog/details.html', {'article': article})
@@ -41,18 +41,18 @@ def articles_list(request):
     return render(request, 'blog/list.html', {'articles': articles, 'title': "Blog - головна сторінка"})
 
 
-@login_required(login_url='/members/login/')
+@login_required()
 def article_tag_list(request, tag):
     articles = Article.objects.filter(tags__name=tag, status='active')
     return render(request, 'blog/articles_tag_list.html', {'articles': articles, 'title': tag})
 
 
-@login_required(login_url='/members/login/')
+@login_required()
 def tag_list(request, tag):
     pass
 
 
-@login_required(login_url='/members/login/')
+@login_required()
 def search(request):
     query = request.GET.get('query', '')
 
