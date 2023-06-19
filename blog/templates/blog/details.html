@@ -2,12 +2,16 @@
 
 {% block title %}{{aticle.title}}{%endblock%}
 {% block  content %} 
-        <img src='{{article.image.url}}' alt='{{article.title}}' class='img-fluid'>
-    <h1> {{article.title}} </h1>
-    {% if user_first_name == article.author.first_name %}
-    {% comment %} <a class='btn btn-primary' href='{% url "articles_edit" article.slug %}'>Редагувати</a>
-    <a class='btn btn-danger' href='{% url "articles_delete" article.slug %}'>Видалити</a> {% endcomment %}
+    {% if article.image %}
+        <img src='{{article.image.url}}' alt='{{article.title}}' height='600px' class='object-fit-cover'>
     {% endif %}
+    <h1> {{article.title}} </h1>
+    <div class = "my-3">
+        {% if user == article.author %} 
+            <a class='btn btn-primary' href='{% url "article_update" article.slug %}'>Редагувати</a>
+            <a class='btn btn-danger' href='{% url "delete" article.slug %}'>Видалити</a>
+        {% endif %} 
+    </div>    
     <p>Автор: {{article.author.first_name}}</p>
     <p>Дата публікації: {{article.created_at}} </p>
     <p>Дата оновлення: {{article.updated_at}} </p>
