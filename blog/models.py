@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 # Create your models here.
 
 
@@ -21,7 +22,7 @@ class Article(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(verbose_name='URL', unique=True)
     content_preview = models.TextField(verbose_name='Превью')
-    content = models.TextField(verbose_name='Основний текст')
+    content = RichTextField(verbose_name='Основний текст')
     created_at = models.DateTimeField(
         auto_now_add=True, verbose_name='Дата створення')
     updated_at = models.DateTimeField(

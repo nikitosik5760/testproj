@@ -20,7 +20,8 @@
         {% endfor %}
     </p>
     <p>Категорія: <a href='#'>{{article.category.name}}</a></p>
-    <p> {{article.content}} </p>
+    </hr>
+    <p> {{article.content|safe}} </p>
     
 
     <h2>Додати коментар</h2>
