@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from django.utils.text import slugify
 # Create your models here.
 
 
@@ -35,6 +36,10 @@ class Article(models.Model):
     def __str__(self):
         return f'{self.title}'
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
     class Meta:
         verbose_name = 'Стаття'
         verbose_name_plural = 'Статті'
@@ -53,14 +58,22 @@ class Category(models.Model):
     def __str__(self) -> str:
         return f'{self.name}'
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
 
 class Tag(models.Model):
     name = models.CharField(
-        max_length=255, verbose_name='Назва тега', unique=True, default='funny')
+        max_length=255, verbose_name='Назва тега', unique=True)
     slug = models.SlugField(verbose_name='URL', default='', unique=True)
 
     def __str__(self) -> str:
         return f'{self.name}'
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Тег'

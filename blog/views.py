@@ -86,7 +86,7 @@ def update(request, slug):
     article = get_object_or_404(Article, slug=slug, author=request.user)
     if request.method == 'POST':
         form = ArticleForm(request.POST, request.FILES,
-                           instance=article, current_user=request.user)
+                           instance=article,)
 
         if form.is_valid():
             article = form.save()
@@ -100,7 +100,7 @@ def update(request, slug):
 
 @login_required()
 def delete(request, slug):
-    article = get_object_or_404(Article, slug=slug, author=request.user)
+    article = get_object_or_404(Article, slug=slug)
     article.delete()
     messages.add_message(request, messages.INFO,
                          'Стаття успішно видалена')
