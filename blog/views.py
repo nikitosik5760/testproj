@@ -85,7 +85,8 @@ def create(request):
 def update(request, slug):
     article = get_object_or_404(Article, slug=slug, author=request.user)
     if request.method == 'POST':
-        form = ArticleForm(request.POST, request.FILES, instance=article)
+        form = ArticleForm(request.POST, request.FILES,
+                           instance=article, current_user=request.user)
 
         if form.is_valid():
             article = form.save()

@@ -56,7 +56,7 @@ class Category(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(
-        max_length=255, verbose_name='Назва тега', unique=True)
+        max_length=255, verbose_name='Назва тега', unique=True, default='funny')
     slug = models.SlugField(verbose_name='URL', default='', unique=True)
 
     def __str__(self) -> str:

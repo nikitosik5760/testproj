@@ -1,11 +1,13 @@
 {% extends 'core/base.html'%}
 
 {% block title %} {{title}} {% endblock %}
-
+{% block hero %} 
+    {% include 'core/blocks/hero_main.html' %}
+{% endblock hero %}
 {% block content %}
     <h1>{{title}}</h1>
     <p>Тут буде інформація головної сторінки</p>
     
-          
+
     </div>
 {% endblock %}
