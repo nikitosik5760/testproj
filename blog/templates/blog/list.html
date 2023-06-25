@@ -9,7 +9,7 @@
     </div>
         <div class="row row-cols-3 g-4">
 
-        {% for article in articles %}
+        {% for article in page_articles %}
             <div class="col">
                 <div class="card">
                     <a href="{% url 'details' article.slug %}" class="text-decoration-none text-white">
@@ -37,4 +37,27 @@
         {% endfor %}
           
     </div>
+    {% for contact in page_articles %}
+    {# Each "contact" is a Contact model object. #}
+    {{ contact.full_name|upper }}<br>
+    ...
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_articles.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_articles.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_articles.number }} of {{ page_articles.paginator.num_pages }}.
+        </span>
+
+        {% if page_articles.has_next %}
+            <a href="?page={{ page_articles.next_page_number }}">next</a>
+            <a href="?page={{ page_articles.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 {% endblock %}

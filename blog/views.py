@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Article
 from django.contrib import messages
 from .forms import CommentForm, ArticleForm
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -38,7 +39,10 @@ def articles_list(request):
     if not request.user.is_authenticated:
         return render(request, 'blog/error_login.html', {'title': "Помилка доступу"})
     articles = Article.objects.filter(status='active')
-    return render(request, 'blog/list.html', {'articles': articles, 'title': "Blog - головна сторінка"})
+    paginator = Paginator(articles, 2)
+    page_number = request.GET.get("page")
+    page_articles = paginator.get_page(page_number)
+    return render(request, 'blog/list.html', {'page_articles': page_articles, 'title': "Blog - головна сторінка"})
 
 
 @login_required()
