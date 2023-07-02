@@ -42,7 +42,7 @@ def articles_list(request):
     paginator = Paginator(articles, 2)
     page_number = request.GET.get("page")
     page_articles = paginator.get_page(page_number)
-    return render(request, 'blog/list.html', {'page_articles': page_articles, 'title': "Blog - головна сторінка"})
+    return render(request, 'blog/list.html', {'page_articles': page_articles, 'title': "Blog - головна сторінка", 'articles': articles})
 
 
 @login_required()
