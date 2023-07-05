@@ -40,14 +40,14 @@ INSTALLED_APPS = [
 
     'ckeditor',
     'mptt',
-    'imagekit'
+    'imagekit',
 
 
-    'core.apps.CoreConfig',
-    'blog.apps.BlogConfig',
-    'members.apps.MembersCongig',
-    'shop.apps.ShopConfig',
-    'catalog.apps.CatalogConfig',
+    'apps.core.apps.CoreConfig',
+    'apps.blog.apps.BlogConfig',
+    'apps.members.apps.MembersConfig',
+    'apps.shop.apps.ShopConfig',
+    'apps.catalog.apps.CatalogConfig',
 ]
 
 MIDDLEWARE = [
@@ -65,7 +65,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates', BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
