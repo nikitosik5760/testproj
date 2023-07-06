@@ -1,7 +1,14 @@
 from django.contrib import admin
-from .models import Category, Product
+from .models import Category, Product, Image
 
 # Register your models here.
+
+
+class ImageInLIne(admin.TabularInline):
+    model = Image
+    fields = ('product', 'image_tag', 'image', 'is_main')
+    readonly_fields = ('image_tag',)
+    extra = 1
 
 
 class ProductCategoryInline(admin.TabularInline):
@@ -19,4 +26,4 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     fields = ('name', 'description', 'quantity', 'price')
-    inlines = (ProductCategoryInline,)
+    inlines = (ProductCategoryInline, ImageInLIne)
